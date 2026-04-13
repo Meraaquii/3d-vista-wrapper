@@ -1,0 +1,19 @@
+.exterior-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.exterior-iframe-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.exterior-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}

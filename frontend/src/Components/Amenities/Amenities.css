@@ -1,0 +1,173 @@
+.amenities-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Full-screen 360 iframe */
+.amenities-iframe-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.amenities-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Trigger button — shown when card is hidden */
+.amenities-trigger-btn {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: rgba(38, 38, 38, 0.88);
+  border: 1px solid rgba(200, 200, 200, 0.2);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10;
+  letter-spacing: 0.3px;
+  transition: background 0.2s ease;
+}
+
+.amenities-trigger-btn:hover {
+  background: rgba(60, 60, 60, 0.95);
+}
+
+/* Selected label — top center of iframe */
+/* .amenities-selected-label {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  z-index: 10;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+} */
+
+/* ── Card panel ── */
+.amenities-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12%;
+  height: 100vh;
+  background: rgba(38, 38, 38, 0.6);
+  border-right: 1px solid rgba(200, 200, 200, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 20px 0;
+  z-index: 5;
+
+  /* Hidden by default — slide off to the left */
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+/* Visible state — slide in */
+.amenities-card.visible {
+  transform: translateX(0%);
+  pointer-events: all;
+}
+
+/* Top row: logo + back chevron */
+.amenities-card-toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 14px;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.15);
+  margin-bottom: 15px;
+}
+
+/* .amenities-logo-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.amenities-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.amenities-back-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+/* .amenities-back-btn:hover {
+  color: #c28540;
+} */
+
+/* Title */
+.amenities-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  padding: 10px 16px 12px;
+}
+
+/* Buttons list */
+.amenities-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.amenity-btn {
+  width: 100%;
+  padding: 11px 0;
+  border-radius: 8px;
+  border: none;
+  background: rgba(90, 90, 90, 0.95);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: background 0.15s ease;
+}
+
+.amenity-btn:hover:not(.active) {
+  background: rgba(110, 110, 110, 0.9);
+}
+
+.amenity-btn.active {
+  background: #e73e3f;
+}

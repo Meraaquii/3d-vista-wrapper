@@ -1,0 +1,178 @@
+.interior-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 360 iframe fills entire screen */
+.interior-iframe-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.interior-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Vertical tabs on left */
+.interior-tabs {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.interior-tab {
+  width: 32px;
+  height: 120px;
+  background: #5e5e5e;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  padding: 0;
+}
+
+.interior-tab.active {
+  background: #e73e3f;
+}
+
+.interior-tab:hover:not(.active) {
+  background: #6d6d6d;
+}
+
+.interior-tab-text {
+  display: block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Style buttons top right */
+.interior-styles {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
+}
+
+.interior-style-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #222222;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.interior-style-btn.active {
+  background: #ffffff;
+  color: #e73e3f;
+  box-shadow: 0 0 0 2px #c28540;
+}
+
+.interior-style-btn:hover:not(.active) {
+  background: #f0f0f0;
+}
+
+/* Floor plan bottom left */
+.interior-floorplan {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 160px;
+  height: 120px;
+}
+
+.interior-floorplan-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.interior-view-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  width: 260px;
+  height: 50px;
+  background: #e5e5e5;
+  border-radius: 30px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Buttons */
+.toggle-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #4a7cff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Active state */
+.toggle-btn.active {
+  background: #4a7cff;
+  color: #ffffff;
+}
+
+/* Rounded edges for pill look */
+.toggle-btn:first-child.active {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.toggle-btn:last-child.active {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.interior-floorplan-fullview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  z-index: 0;
+}
+
+.interior-floorplan-fullimg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
