@@ -5,17 +5,26 @@ const unitData = {
   "4BHK Delux": {
     Modern: "https://salestool.nambiardistrict25.com/meraaquii/360/interior/",
     Luxury: "https://salestool.nambiardistrict25.com/meraaquii/360/interior/",
+    floorPlan:
+      "https://interactive.meraaquii.com/uploads/proj_img/flat_zoom_spite_url_1751740051_1.png",
   },
   "4BHK Luxury": {
     Modern:
       "https://salestool.nambiardistrict25.com/meraaquii/360/D25_salesman/",
     Luxury:
       "https://salestool.nambiardistrict25.com/meraaquii/360/D25_salesman/",
+    floorPlan:
+      "https://interactive.meraaquii.com/uploads/proj_img/flat_zoom_spite_url_1751740051_1.png",
+  },
+  "3BHK Luxury": {
+    Modern:
+      "https://salestool.nambiardistrict25.com/meraaquii/360/D25_salesman/",
+    Luxury:
+      "https://salestool.nambiardistrict25.com/meraaquii/360/D25_salesman/",
+    floorPlan:
+      "https://interactive.meraaquii.com/uploads/proj_img/flat_zoom_spite_url_1751740051_1.png",
   },
 };
-
-const floorPlanImage =
-  "https://interactive.meraaquii.com/uploads/proj_img/flat_zoom_spite_url_1751740051_1.png";
 
 function Interior() {
   const [selectedUnit, setSelectedUnit] = useState("4BHK Delux");
@@ -23,6 +32,7 @@ function Interior() {
   const [activeView, setActiveView] = useState("Interiors");
 
   const iframeSrc = unitData[selectedUnit][selectedStyle];
+  const floorPlanSrc = unitData[selectedUnit].floorPlan;
 
   return (
     <div className="interior-page">
@@ -43,9 +53,9 @@ function Interior() {
 
       {/* 2D floor plan image - show only in 2D Plans view */}
       {activeView === "2D Plans" && (
-        <div className="interior-floorplan-fullview">
+        <div className="interior-floorplan-fullview" key={selectedUnit}>
           <img
-            src={floorPlanImage}
+            src={floorPlanSrc}
             alt="2D Floor Plan"
             className="interior-floorplan-fullimg"
           />
