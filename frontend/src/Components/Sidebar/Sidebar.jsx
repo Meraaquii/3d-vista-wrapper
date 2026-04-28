@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Menu, Layers, Box, User, Home, Phone } from "lucide-react";
+import { Menu, Layers, Box, User, Home, Phone, MapPin } from "lucide-react";
 import "./Sidebar.css";
 
 const menuItems = [
   { id: "exterior", label: "Exterior", icon: Layers, path: "/exterior" },
   { id: "interior", label: "Interior", icon: Box, path: "/interior" },
   { id: "amenities", label: "Amenities", icon: User, path: "/amenities" },
+  { id: "map", label: "Map", icon: MapPin, path: "/map" }, // ✅ fixed
   { id: "drone", label: "Drone", icon: Home, path: "/drone" },
-  { id: "call", label: "Call", icon: Phone, path: "/call" },
+  // { id: "call", label: "Call", icon: Phone, path: "/call" },
 ];
 
 const LogoImage =
@@ -22,6 +23,13 @@ function Sidebar() {
     if (location.pathname === "/amenities") {
       e.preventDefault();
       window.dispatchEvent(new CustomEvent("amenities:toggle"));
+    }
+  };
+
+  const handleDronClick = (e) => {
+    if (location.pathname === "/drone") {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent("drone:toggle"));
     }
   };
 
@@ -40,7 +48,13 @@ function Sidebar() {
               className={({ isActive }) =>
                 `nav-item ${isActive ? "active" : ""}`
               }
-              onClick={id === "amenities" ? handleAmenitiesClick : undefined}
+              onClick={
+                id === "amenities"
+                  ? handleAmenitiesClick
+                  : id === "drone"
+                    ? handleDronClick
+                    : undefined
+              }
             >
               <span className="nav-icon">
                 <Icon size={24} strokeWidth={1.5} />

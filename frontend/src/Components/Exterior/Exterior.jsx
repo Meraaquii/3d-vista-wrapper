@@ -6,7 +6,7 @@ function Exterior() {
     <div className="exterior-page">
       <div className="exterior-iframe-wrapper">
         <iframe
-          src="https://salestool.nambiardistrict25.com/meraaquii/360/exterior/"
+          src="https://merakicreation.in/Orizon/EXTERIOR/"
           title="360 Exterior View"
           className="exterior-iframe"
           allowFullScreen

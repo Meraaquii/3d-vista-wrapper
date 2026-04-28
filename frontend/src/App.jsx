@@ -7,10 +7,11 @@ import Amenities from "./Components/Amenities/Amenities";
 import Drone from "./Components/Drone/Drone";
 import Call from "./Components/Call/Call";
 import "./App.css";
+import Map from "./Components/Map/Map";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/SrijanOrizon">
       <div className="app">
         <Sidebar />
         <main className="main-content">
@@ -19,6 +20,7 @@ function App() {
             <Route path="/exterior" element={<Exterior />} />
             <Route path="/interior" element={<Interior />} />
             <Route path="/amenities" element={<Amenities />} />
+            <Route path="/map" element={<Map />} />
             <Route path="/drone" element={<Drone />} />
             <Route path="/call" element={<Call />} />
           </Routes>
