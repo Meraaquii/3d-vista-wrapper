@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ReactPannellum from "react-pannellum";
-import Image10 from "../../assets/images/Dron-5th (Custom).jpg";
-import Image11 from "../../assets/images/Dron-10th (Custom).jpg";
-import Image12 from "../../assets/images/Dron-15th (Custom).jpg";
-import Image13 from "../../assets/images/Dron-20th (Custom).jpg";
-import Image14 from "../../assets/images/Dron-25th (Custom).jpg";
+
 import "./Drone.css";
 
 const droneImages = {
-  "5TH FLOOR": Image10,
-  "10TH FLOOR": Image11,
-  "15TH FLOOR": Image12,
-  "20TH FLOOR": Image13,
-  "25TH FLOOR": Image14,
+  "5TH FLOOR":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328013/Dron-5th_Custom_uo4mqf.jpg",
+  "10TH FLOOR":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328013/Dron-10th_Custom_sbd0iw.jpg",
+  "15TH FLOOR":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328014/Dron-15th_Custom_nnue9l.jpg",
+  "20TH FLOOR":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328014/Dron-20th_Custom_sk6hep.jpg",
+  "25TH FLOOR":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328015/Dron-25th_Custom_kfs8tf.jpg",
 };
 
 const droneList = [

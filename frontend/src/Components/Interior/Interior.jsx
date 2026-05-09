@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FloorPlan from "../../assets/images/isometric_spite 3D.png";
+//import FloorPlan from "../../assets/images/isometric_spite 3D.png";
 import "./Interior.css";
 
 const unitData = {
@@ -40,7 +40,7 @@ function Interior() {
       {activeView === "2D Plans" && (
         <div className="interior-floorplan-fullview" key={selectedUnit}>
           <img
-            src={FloorPlan}
+            src="https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327974/isometric_spite_3D_ziwkzn.png"
             alt="2D Floor Plan"
             className="interior-floorplan-fullimg"
           />

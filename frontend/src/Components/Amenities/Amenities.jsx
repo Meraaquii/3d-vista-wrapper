@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import ReactPannellum from "react-pannellum";
-import Image1 from "../../assets/images/Bar_Lounge_v01.jpg";
-import Image2 from "../../assets/images/Community_Hall.jpg";
-import Image3 from "../../assets/images/Guest_Bedroom_v01.jpg";
-import Image4 from "../../assets/images/Gym.jpg";
-import Image5 from "../../assets/images/Home Theater.jpg";
-import Image6 from "../../assets/images/Indoor_Game.jpg";
-import Image7 from "../../assets/images/Senior Citizenroom & Library.jpg";
-import Image8 from "../../assets/images/Squash_Court_v01.jpg";
-import Image9 from "../../assets/images/Yoga_v01.jpg";
 
 import "./Amenities.css";
 
 // Map amenities to their 360° images
 const amenityImages = {
-  "Bar Lounge": Image1,
-  "Community Hall": Image2,
-  "Guest Bedroom": Image3,
-  Gym: Image4,
-  "Home Theater": Image5,
-  "Indoor Game": Image6,
-  "Senior Citizenroom & Library": Image7,
-  "Squash Court": Image8,
-  Yoga: Image9,
+  "Bar Lounge":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327977/Bar_Lounge_v01_j5zkbq.jpg",
+  "Community Hall":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327977/Community_Hall_bs966b.jpg",
+  "Guest Bedroom":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327975/Guest_Bedroom_v01_rvckxj.jpg",
+  Gym: "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327976/Gym_bv7pvb.jpg",
+  "Home Theater":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327976/Home_Theater_dpxmn6.jpg",
+  "Indoor Game":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327975/Indoor_Game_q6fpz8.jpg",
+  "Senior Citizenroom & Library":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327976/Senior_Citizenroom_Library_rvy7ol.jpg",
+  "Squash Court":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327975/Squash_Court_v01_jwovp2.jpg",
+  Yoga: "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327976/Yoga_v01_sdxay9.jpg",
 };
 
 const amenityList = [
