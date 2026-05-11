@@ -32,7 +32,8 @@ const PlanURL = {
   "Type B {Tower 5&6 }":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778493910/isometric_spite_1_cfrgdh.png",
 
-  "Type C {Tower 1&2 }": "",
+  "Type C {Tower 1&2 }":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778509007/isometric_spite2_1_afkxql.png",
 
   "Type C {Tower 3&4 }":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778508646/isometric_spite1_t4wy86.png",
