@@ -1,27 +1,55 @@
 import React, { useState } from "react";
-//import FloorPlan from "../../assets/images/isometric_spite 3D.png";
 import "./Interior.css";
 
 const unitData = {
-  "3BHK Type A": {
-    Modern: "https://merakicreation.in/Orizon/INTERIOR/",
-    Luxury: "https://merakicreation.in/Orizon/INTERIOR/",
-    // floorPlan:
-    //   "https://interactive.meraaquii.com/uploads/proj_img/flat_zoom_spite_url_1751740051_1.png",
+  "Type A {Tower 1&2 }": {
+    url: "https://merakicreation.in/Orizon/INTERIOR/Tower_1_2_Typ_Flat_A/",
+  },
+
+  "Type A {Tower 3&4 }": {
+    url: "https://merakicreation.in/Orizon/INTERIOR/Tower_3_4_Typ_Flat_A/",
+  },
+
+  "Type B {Tower 5&6 }": {
+    url: "https://merakicreation.in/Orizon/INTERIOR/Tower_5_6_Typ_Flat_B/",
+  },
+
+  "Type C {Tower 1&2 }": {
+    url: "https://merakicreation.in/Orizon/INTERIOR/Tower_1_2_Typ_Flat_C/",
+  },
+  "Type C {Tower 3&4 }": {
+    url: "https://merakicreation.in/Orizon/INTERIOR/Tower_3_4_Typ_Flat_C/",
   },
 };
 
+const PlanURL = {
+  "Type A {Tower 1&2 }":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327974/isometric_spite_3D_ziwkzn.png",
+
+  "Type A {Tower 3&4 }":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327974/isometric_spite_3D_ziwkzn.png",
+
+  "Type B {Tower 5&6 }":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778493910/isometric_spite_1_cfrgdh.png",
+
+  "Type C {Tower 1&2 }": "",
+
+  "Type C {Tower 3&4 }":
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778508646/isometric_spite1_t4wy86.png",
+};
+
 function Interior() {
-  const [selectedUnit, setSelectedUnit] = useState("3BHK Type A");
-  const [selectedStyle, setSelectedStyle] = useState("Modern");
+  const [selectedUnit, setSelectedUnit] = useState("Type A {Tower 1&2 }");
+
   const [activeView, setActiveView] = useState("Interiors");
 
-  const iframeSrc = unitData[selectedUnit][selectedStyle];
-  const floorPlanSrc = unitData[selectedUnit].floorPlan;
+  const iframeSrc = unitData[selectedUnit].url;
+
+  const floorPlanSrc = PlanURL[selectedUnit];
 
   return (
     <div className="interior-page">
-      {/* 360 iframe as background - show only in Interiors view */}
+      {/* 360 iframe */}
       {activeView === "Interiors" && (
         <div className="interior-iframe-wrapper">
           <iframe
@@ -36,23 +64,23 @@ function Interior() {
         </div>
       )}
 
-      {/* 2D floor plan image - show only in 2D Plans view */}
+      {/* 2D Plans */}
       {activeView === "2D Plans" && (
-        <div className="interior-floorplan-fullview" key={selectedUnit}>
+        <div className="interior-floorplan-fullview">
           <img
-            src="https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778327974/isometric_spite_3D_ziwkzn.png"
+            src={floorPlanSrc}
             alt="2D Floor Plan"
             className="interior-floorplan-fullimg"
           />
         </div>
       )}
 
-      {/* Vertical unit tabs on left */}
+      {/* Left Tabs */}
       <div className="interior-tabs">
         {Object.keys(unitData).map((unit) => (
           <button
             key={unit}
-            className={`interior-tab${selectedUnit === unit ? " active" : ""}`}
+            className={`interior-tab ${selectedUnit === unit ? "active" : ""}`}
             onClick={() => setSelectedUnit(unit)}
           >
             <span className="interior-tab-text">{unit}</span>
@@ -60,16 +88,17 @@ function Interior() {
         ))}
       </div>
 
-      {/* 2D Plans / Interiors toggle bottom right */}
+      {/* Bottom Toggle */}
       <div className="interior-view-toggle">
         <button
-          className={`toggle-btn${activeView === "2D Plans" ? " active" : ""}`}
+          className={`toggle-btn ${activeView === "2D Plans" ? "active" : ""}`}
           onClick={() => setActiveView("2D Plans")}
         >
           2D Plans
         </button>
+
         <button
-          className={`toggle-btn${activeView === "Interiors" ? " active" : ""}`}
+          className={`toggle-btn ${activeView === "Interiors" ? "active" : ""}`}
           onClick={() => setActiveView("Interiors")}
         >
           Interiors
