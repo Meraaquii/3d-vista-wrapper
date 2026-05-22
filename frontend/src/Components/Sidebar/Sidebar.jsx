@@ -1,15 +1,41 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Menu, Layers, Box, User, Home, Phone, MapPin } from "lucide-react";
+import { Layers, Box, Building2, MapPin } from "lucide-react";
+import { GiDeliveryDrone } from "react-icons/gi";
+
 import "./Sidebar.css";
 
 const menuItems = [
-  { id: "exterior", label: "Exterior", icon: Layers, path: "/exterior" },
-  { id: "interior", label: "Interior", icon: Box, path: "/interior" },
-  { id: "amenities", label: "Amenities", icon: User, path: "/amenities" },
-  { id: "map", label: "Map", icon: MapPin, path: "/map" }, // ✅ fixed
-  { id: "drone", label: "Drone", icon: Home, path: "/drone" },
-  // { id: "call", label: "Call", icon: Phone, path: "/call" },
+  {
+    id: "exterior",
+    label: "Exterior",
+    icon: Layers,
+    path: "/exterior",
+  },
+  {
+    id: "interior",
+    label: "Interior",
+    icon: Box,
+    path: "/interior",
+  },
+  {
+    id: "amenities",
+    label: "Amenities",
+    icon: Building2,
+    path: "/amenities",
+  },
+  {
+    id: "map",
+    label: "Map",
+    icon: MapPin,
+    path: "/map",
+  },
+  {
+    id: "drone",
+    label: "Drone",
+    icon: GiDeliveryDrone,
+    path: "/drone",
+  },
 ];
 
 const LogoImage =
@@ -19,6 +45,7 @@ function Sidebar() {
   const location = useLocation();
   const [showEntrance, setShowEntrance] = useState(false);
 
+  // Amenities toggle
   const handleAmenitiesClick = (e) => {
     if (location.pathname === "/amenities") {
       e.preventDefault();
@@ -26,7 +53,8 @@ function Sidebar() {
     }
   };
 
-  const handleDronClick = (e) => {
+  // Drone toggle
+  const handleDroneClick = (e) => {
     if (location.pathname === "/drone") {
       e.preventDefault();
       window.dispatchEvent(new CustomEvent("drone:toggle"));
@@ -36,10 +64,12 @@ function Sidebar() {
   return (
     <>
       <aside className="sidebar">
+        {/* Logo */}
         <div className="sidebar-hamburger">
           <img src={LogoImage} alt="Logo" className="sidebar-logo" />
         </div>
 
+        {/* Navigation */}
         <nav className="sidebar-nav">
           {menuItems.map(({ id, label, icon: Icon, path }) => (
             <NavLink
@@ -52,20 +82,25 @@ function Sidebar() {
                 id === "amenities"
                   ? handleAmenitiesClick
                   : id === "drone"
-                    ? handleDronClick
+                    ? handleDroneClick
                     : undefined
               }
             >
               <span className="nav-icon">
-                <Icon size={24} strokeWidth={1.5} />
+                {id === "drone" ? (
+                  <Icon size={24} />
+                ) : (
+                  <Icon size={24} strokeWidth={1.8} />
+                )}
               </span>
+
               <span className="nav-label">{label}</span>
             </NavLink>
           ))}
         </nav>
       </aside>
 
-      {/* Entrance button — appears next to sidebar when hamburger clicked */}
+      {/* Entrance Popup */}
       {showEntrance && (
         <div className="entrance-popup">
           <button

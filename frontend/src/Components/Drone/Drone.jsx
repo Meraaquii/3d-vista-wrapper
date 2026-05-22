@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  Suspense,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ReactPannellum from "react-pannellum";
+
+import { Canvas, useThree } from "@react-three/fiber";
+import { OrbitControls, useTexture } from "@react-three/drei";
+
+import * as THREE from "three";
 
 import "./Drone.css";
 
+const AUTO_PLAY_SPEED = 0.5;
+const RESUME_DELAY_MS = 3000;
+
+// Same image URLs
 const droneImages = {
   "5TH FLOOR":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328013/Dron-5th_Custom_uo4mqf.jpg",
+
   "10TH FLOOR":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328013/Dron-10th_Custom_sbd0iw.jpg",
+
   "15TH FLOOR":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328014/Dron-15th_Custom_nnue9l.jpg",
+
   "20TH FLOOR":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328014/Dron-20th_Custom_sk6hep.jpg",
+
   "25TH FLOOR":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778328015/Dron-25th_Custom_kfs8tf.jpg",
 };
@@ -25,64 +44,245 @@ const droneList = [
   "25TH FLOOR",
 ];
 
-const pannellumConfig = {
-  autoRotate: -2,
-  autoLoad: true,
-  showZoomCtrl: false,
-  showFullscreenCtrl: false,
-  showControls: false,
-};
+// Panorama Sphere
+function PanoramaSphere({ url, onLoaded }) {
+  const texture = useTexture(url);
+
+  useEffect(() => {
+    if (texture) {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      onLoaded?.();
+    }
+  }, [texture, onLoaded]);
+
+  return (
+    <mesh scale={[-1, 1, 1]}>
+      <sphereGeometry args={[500, 60, 40]} />
+
+      <meshBasicMaterial
+        map={texture}
+        side={THREE.BackSide}
+        toneMapped={false}
+      />
+    </mesh>
+  );
+}
+
+// Scene
+function Scene({
+  autoRotate,
+  url,
+  onLoaded,
+  lastInteractionRef,
+  setAutoRotate,
+}) {
+  const controlsRef = useRef();
+
+  const { camera, gl } = useThree();
+
+  // RESET CAMERA WHEN IMAGE CHANGES
+  useEffect(() => {
+    camera.position.set(0, 0, 0.1);
+
+    camera.fov = 75;
+
+    camera.updateProjectionMatrix();
+
+    if (controlsRef.current) {
+      controlsRef.current.target.set(0, 0, 0);
+
+      controlsRef.current.reset();
+
+      controlsRef.current.update();
+    }
+  }, [url, camera]);
+
+  // SMOOTH ZOOM
+  useEffect(() => {
+    const handleWheel = (e) => {
+      e.preventDefault();
+
+      lastInteractionRef.current = Date.now();
+
+      setAutoRotate(false);
+
+      camera.fov += e.deltaY * 0.03;
+
+      camera.fov = Math.max(30, Math.min(100, camera.fov));
+
+      camera.updateProjectionMatrix();
+    };
+
+    gl.domElement.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
+
+    return () => {
+      gl.domElement.removeEventListener("wheel", handleWheel);
+    };
+  }, [camera, gl, lastInteractionRef, setAutoRotate]);
+
+  return (
+    <>
+      <PanoramaSphere url={url} onLoaded={onLoaded} />
+
+      <OrbitControls
+        ref={controlsRef}
+        enableZoom={false}
+        enablePan={false}
+        rotateSpeed={-0.5}
+        autoRotate={autoRotate}
+        autoRotateSpeed={AUTO_PLAY_SPEED}
+        onStart={() => {
+          lastInteractionRef.current = Date.now();
+          setAutoRotate(false);
+        }}
+        onEnd={() => {
+          lastInteractionRef.current = Date.now();
+        }}
+      />
+    </>
+  );
+}
 
 function Drone() {
   const [selected, setSelected] = useState("5TH FLOOR");
+
   const [showCard, setShowCard] = useState(true);
+
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const handleToggle = () => setShowCard((prev) => !prev);
-    window.addEventListener("drone:toggle", handleToggle);
-    return () => window.removeEventListener("drone:toggle", handleToggle);
-  }, []);
+  const [autoRotate, setAutoRotate] = useState(true);
 
+  const containerRef = useRef(null);
+
+  const lastInteractionRef = useRef(Date.now());
+
+  const isPointerDownRef = useRef(false);
+
+  const autoRotateRef = useRef(autoRotate);
+
+  // keep latest autoRotate value
+  useEffect(() => {
+    autoRotateRef.current = autoRotate;
+  }, [autoRotate]);
+
+  // show loader when image changes
   useEffect(() => {
     setLoading(true);
   }, [selected]);
 
+  // toggle card
+  useEffect(() => {
+    const handleToggle = () => {
+      setShowCard((prev) => !prev);
+    };
+
+    window.addEventListener("drone:toggle", handleToggle);
+
+    return () => {
+      window.removeEventListener("drone:toggle", handleToggle);
+    };
+  }, []);
+
+  // pointer down
+  const handlePointerDown = useCallback(() => {
+    isPointerDownRef.current = true;
+
+    lastInteractionRef.current = Date.now();
+
+    setAutoRotate(false);
+  }, []);
+
+  // pointer up
+  const handlePointerUp = useCallback(() => {
+    isPointerDownRef.current = false;
+
+    lastInteractionRef.current = Date.now();
+  }, []);
+
+  // resume auto rotate
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isPointerDownRef.current) return;
+
+      const elapsed = Date.now() - lastInteractionRef.current;
+
+      if (elapsed > RESUME_DELAY_MS && !autoRotateRef.current) {
+        setAutoRotate(true);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // attach listeners
+  useEffect(() => {
+    const el = containerRef.current;
+
+    if (!el) return;
+
+    el.addEventListener("pointerdown", handlePointerDown);
+
+    el.addEventListener("pointerup", handlePointerUp);
+
+    el.addEventListener("pointerleave", handlePointerUp);
+
+    return () => {
+      el.removeEventListener("pointerdown", handlePointerDown);
+
+      el.removeEventListener("pointerup", handlePointerUp);
+
+      el.removeEventListener("pointerleave", handlePointerUp);
+    };
+  }, [handlePointerDown, handlePointerUp]);
+
   return (
     <div className="drone-page">
-      {/* ── 360° Viewer ── */}
-      <div className="drone-iframe-wrapper">
+      {/* 360 Viewer */}
+      <div ref={containerRef} className="drone-iframe-wrapper">
         {loading && (
           <div className="drone-loader">
             <div className="drone-spinner" />
           </div>
         )}
-        <ReactPannellum
-          key={selected}
-          id="droneViewer"
-          sceneId="droneScene"
-          imageSource={droneImages[selected]}
-          config={pannellumConfig}
+
+        <Canvas
+          dpr={window.devicePixelRatio}
+          camera={{
+            position: [0, 0, 0.1],
+            fov: 75,
+          }}
           style={{
             width: "100%",
             height: "100%",
             visibility: loading ? "hidden" : "visible",
           }}
-          onPanoramaLoaded={() => setLoading(false)}
-        />
+        >
+          <Suspense fallback={null}>
+            <Scene
+              autoRotate={autoRotate}
+              url={droneImages[selected]}
+              onLoaded={() => setLoading(false)}
+              lastInteractionRef={lastInteractionRef}
+              setAutoRotate={setAutoRotate}
+            />
+          </Suspense>
+        </Canvas>
       </div>
 
-      {/* ── Re-open tab ── */}
+      {/* Reopen Button */}
       {!showCard && (
         <button className="drone-reopen-btn" onClick={() => setShowCard(true)}>
           <IoIosArrowForward />
         </button>
       )}
 
-      {/* ── Sliding Card ── */}
+      {/* Sliding Card */}
       <div className={`drone-card${showCard ? " visible" : ""}`}>
         <div className="drone-card-toprow">
           <h1 className="drone-title">Drone View</h1>
+
           <button className="drone-back-btn" onClick={() => setShowCard(false)}>
             <IoIosArrowBack />
           </button>

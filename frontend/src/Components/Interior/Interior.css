@@ -5,7 +5,9 @@
   overflow: hidden;
 }
 
-/* 360 iframe fills entire screen */
+/* =========================
+   360 VIEW / MAIN FRAME
+   ========================= */
 .interior-iframe-wrapper {
   position: absolute;
   inset: 0;
@@ -19,30 +21,58 @@
   display: block;
 }
 
-/* Vertical tabs on left */
+/* =========================
+   UNIT TABS (RESPONSIVE BOTTOM)
+   ========================= */
 .interior-tabs {
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex-direction: row;
+  gap: 10px;
+
   z-index: 10;
+
+  padding: 8px 10px;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+
+  overflow-x: auto;
+  white-space: nowrap;
+
+  max-width: 95vw; /* ✅ prevents overflow */
 }
 
+/* Scrollbar hide (clean UI) */
+.interior-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+   TAB BUTTONS (RESPONSIVE)
+   ========================= */
 .interior-tab {
-  width: 40px;
-  height: 130px;
+  flex: 0 0 auto; /* prevents shrinking */
+
+  height: 40px;
+  padding: 0 14px;
+
   background: #5e5e5e;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   transition: background 0.2s ease;
-  padding: 0;
 }
 
 .interior-tab.active {
@@ -53,25 +83,26 @@
   background: #6d6d6d;
 }
 
+/* Text */
 .interior-tab-text {
-  display: block;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  color: #ffffff;
+  color: #fff;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.5px;
   white-space: nowrap;
 }
 
-/* Style buttons top right */
+/* =========================
+   STYLE BUTTONS (TOP RIGHT RESPONSIVE)
+   ========================= */
 .interior-styles {
   position: absolute;
   top: 20px;
   right: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
+
   z-index: 10;
 }
 
@@ -80,35 +111,36 @@
   height: 70px;
   border-radius: 50%;
   border: none;
+
   background: rgba(255, 255, 255, 0.92);
-  color: #222222;
+  color: #222;
+
   font-size: 12px;
   font-weight: 600;
+
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
 }
 
 .interior-style-btn.active {
-  background: #ffffff;
+  background: #fff;
   color: #e73e3f;
   box-shadow: 0 0 0 2px #c28540;
 }
 
-.interior-style-btn:hover:not(.active) {
-  background: #f0f0f0;
-}
-
-/* Floor plan bottom left */
+/* =========================
+   FLOOR PLAN (BOTTOM LEFT RESPONSIVE)
+   ========================= */
 .interior-floorplan {
   position: absolute;
   bottom: 20px;
   left: 20px;
+
   z-index: 10;
+
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.3);
+
   width: 160px;
   height: 120px;
 }
@@ -117,58 +149,62 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
+/* =========================
+   VIEW TOGGLE (BOTTOM RIGHT RESPONSIVE)
+   ========================= */
 .interior-view-toggle {
   position: absolute;
   bottom: 20px;
   right: 20px;
+
   display: flex;
+
   width: 260px;
+  max-width: 40vw; /* ✅ responsive */
   height: 50px;
+
   background: #e5e5e5;
   border-radius: 30px;
   overflow: hidden;
+
   z-index: 10;
 }
 
-/* Buttons */
 .toggle-btn {
   flex: 1;
   border: none;
   background: transparent;
-  color: #4a7cff;
+
+  color: #e73e3f;
   font-size: 14px;
   font-weight: 600;
+
   cursor: pointer;
+
   transition: all 0.3s ease;
 }
 
-/* Active state */
 .toggle-btn.active {
-  background: #4a7cff;
-  color: #ffffff;
+  background: #e73e3f;
+  color: #fff;
 }
 
-/* Rounded edges for pill look */
-.toggle-btn:first-child.active {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
-
-.toggle-btn:last-child.active {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-}
+/* =========================
+   FULL FLOOR PLAN VIEW
+   ========================= */
 .interior-floorplan-fullview {
   position: absolute;
   inset: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: #000;
   z-index: 0;
+
   pointer-events: none;
 }
 
@@ -177,4 +213,70 @@
   height: 100%;
   object-fit: contain;
   pointer-events: none;
+}
+
+/* =========================
+   📱 MOBILE RESPONSIVE FIX
+   ========================= */
+@media (max-width: 768px) {
+  .interior-tabs {
+    bottom: 10px;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .interior-tab {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .interior-style-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 10px;
+  }
+
+  .interior-floorplan {
+    width: 120px;
+    height: 90px;
+    left: 10px;
+    bottom: 70px;
+  }
+
+  .interior-view-toggle {
+    width: 200px;
+    height: 45px;
+    right: 10px;
+    bottom: 70px;
+  }
+}
+
+/* =========================
+   📱 SMALL MOBILE FIX
+   ========================= */
+@media (max-width: 480px) {
+  .interior-tabs {
+    max-width: 98vw;
+  }
+
+  .interior-tab {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .interior-style-btn {
+    width: 45px;
+    height: 45px;
+  }
+
+  .interior-floorplan {
+    display: none; /* optional: hide on very small screens */
+  }
+
+  .interior-view-toggle {
+    width: 180px;
+    height: 40px;
+  }
 }
