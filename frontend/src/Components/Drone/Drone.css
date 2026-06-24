@@ -1,3 +1,6 @@
+/* ─────────────────────────────────────────
+   Drone Page Layout
+───────────────────────────────────────── */
 .drone-page {
   position: relative;
   width: 100%;
@@ -6,7 +9,6 @@
   background: #000;
 }
 
-/* ── Pannellum wrapper ── */
 .drone-iframe-wrapper {
   position: absolute;
   inset: 0;
@@ -14,7 +16,9 @@
   height: 100%;
 }
 
-/* ── Sliding Card ── */
+/* ─────────────────────────────────────────
+   Sliding Card Panel
+───────────────────────────────────────── */
 .drone-card {
   position: absolute;
   top: 0;
@@ -22,7 +26,6 @@
   transform: translateX(-100%);
   transition: transform 0.4s ease;
   background: rgba(38, 38, 38, 0.6);
-  /* border-radius: 0 16px 16px 0; */
   padding: 24px 20px;
   z-index: 10;
   min-width: 220px;
@@ -31,13 +34,14 @@
   max-height: 100vh;
   overflow-y: auto;
   box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .drone-card.visible {
   transform: translateX(0);
 }
 
-/* ── Card top row ── */
 .drone-card-toprow {
   display: flex;
   align-items: center;
@@ -69,11 +73,13 @@
   transition: background 0.2s;
 }
 
-.drone-back-btn:hover:not(.active) {
+.drone-back-btn:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* ── Floor buttons ── */
+/* ─────────────────────────────────────────
+   Floor Buttons
+───────────────────────────────────────── */
 .drone-panel {
   display: flex;
   flex-direction: column;
@@ -96,15 +102,43 @@
     border-color 0.2s;
 }
 
-/* .drone-btn::hover:not(.active) {
-  background: rgba(255, 255, 255, 0.18);
-} */
-
 .drone-btn.active {
   background: #e73e3f;
+  border-color: #e73e3f;
 }
-/* Drone.css — loader styles Amenities se same ── */
 
+/* ─────────────────────────────────────────
+   Reopen Button
+───────────────────────────────────────── */
+.drone-reopen-btn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: rgba(38, 38, 38, 0.7);
+  border: none;
+  border-radius: 0 8px 8px 0;
+  width: 28px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.2s;
+}
+
+.drone-reopen-btn:hover {
+  background: rgba(231, 62, 63, 0.8);
+}
+
+/* ─────────────────────────────────────────
+   Loader
+───────────────────────────────────────── */
 .drone-loader {
   position: absolute;
   inset: 0;
@@ -128,4 +162,208 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ─────────────────────────────────────────
+   Map Hotspot Cards — Animations
+───────────────────────────────────────── */
+
+/* Gentle floating bob — each card uses CSS vars for unique timing */
+.map-card-hotspot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  pointer-events: none;
+  animation: floatBob var(--bob-dur, 3.2s) ease-in-out infinite;
+  animation-delay: var(--bob-delay, 0s);
+}
+
+/* Spring entrance on mount / floor switch */
+.map-card-hotspot.entrance {
+  animation:
+    cardEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    floatBob var(--bob-dur, 3.2s) ease-in-out var(--bob-delay, 0s) infinite;
+}
+
+@keyframes floatBob {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────
+   Card Body
+───────────────────────────────────────── */
+.map-card-body {
+  background: #ffffff;
+  padding: 16px 22px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 188px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+  /* subtle glass sheen on top edge */
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ─────────────────────────────────────────
+   Icon Circle
+───────────────────────────────────────── */
+.map-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  font-size: 18px;
+  /* tinted background via CSS var set inline */
+  background: var(--icon-bg, rgba(0, 0, 0, 0.08));
+}
+
+/* ─────────────────────────────────────────
+   Text Content
+───────────────────────────────────────── */
+.map-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.map-card-title {
+  color: #0f172a;
+  /* font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; */
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: -0.1px;
+}
+
+.map-card-distance {
+  /* font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; */
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  opacity: 0.85;
+}
+
+/* ─────────────────────────────────────────
+   Arrow + Stem + Pin Dot
+───────────────────────────────────────── */
+.map-card-arrow-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1px;
+}
+
+.map-card-arrow {
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #ffffff;
+}
+
+.map-card-stem {
+  width: 2px;
+  height: 64px;
+  background: rgba(31, 29, 29, 0.4);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Pulsing pin dot — color via inline style (currentColor trick) */
+.pin-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 2px;
+  position: relative;
+}
+
+.pin-dot::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  opacity: 0.4;
+  background: currentColor;
+  animation: pingRipple 2s ease-out infinite;
+}
+
+.pin-dot::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  opacity: 0.18;
+  background: currentColor;
+  animation: pingRipple 2s ease-out 0.55s infinite;
+}
+
+@keyframes pingRipple {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Gate Card Variant (dark background)
+───────────────────────────────────────── */
+.gate-card .map-card-body {
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.gate-card .map-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: -0.1px;
+  /* color: #1e293b; */
+}
+
+.gate-card .map-card-stem {
+  background: rgba(15, 15, 15, 0.4);
+}
+.drone-iframe-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 1 !important;
+  isolation: isolate;
 }
