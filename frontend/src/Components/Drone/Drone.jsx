@@ -17,6 +17,8 @@ import {
   FaRoad,
   FaWarehouse,
   FaKey,
+  FaLandmark,
+  FaRoute,
 } from "react-icons/fa";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useTexture, Html } from "@react-three/drei";
@@ -120,6 +122,27 @@ const LANDMARKS_25TH = [
     bobDur: "3.8s",
     bobDelay: "0.9s",
     position: [-130, -5, 720],
+  },
+
+  {
+    id: "10",
+    name: "Gate 1 to Eastern Metropolitan Bypass",
+    distance: "750 M",
+    icon: <FaRoute />,
+    iconColor: "#e73e3f",
+    bobDur: "3.8s",
+    bobDelay: "0.9s",
+    position: [-180, -40, -620],
+  },
+  {
+    id: "11",
+    name: "Gate 2 to Eastern Metropolitan Bypass",
+    distance: "450 M",
+    icon: <FaRoute />,
+    iconColor: "#e73e3f",
+    bobDur: "3.8s",
+    bobDelay: "0.9s",
+    position: [-600, -110, -170],
   },
 ];
 

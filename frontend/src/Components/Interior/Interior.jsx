@@ -27,19 +27,19 @@ const unitData = {
 
 const PlanURL = {
   "Type A [Tower 1&2 ]":
-    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_1_2_Typ_Flat_A_1_pdjajz.png",
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1786538152/Tower_1_2___Unit_A___1_xsieg0.png",
 
   "Type A [Tower 3&4 ]":
-    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_3_4_Typ_Flat_A_1_taprjq.png",
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1786538245/Tower_04___Unit_A_1_eof9iy.png",
 
   "Type B [Tower 5&6 ]":
-    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_5_6_Typ_Flat_B_1_urghr8.png",
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1786538539/Tower_06___Unit_B___1_ipgdxp.png",
 
   "Type F [Tower 1&2 ]":
-    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_1_2_Typ_Flat_C_1_e5yoqd.png",
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1786538198/Tower_1_2___Unit_F___1_ybk6nk.png",
 
   "Type C [Tower 3&4 ]":
-    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_3_4_Typ_Flat_C_1_mxqpjj.png",
+    "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1786538596/Tower_04___Unit_C_1_oie5sa.png",
 
   "Type C [Tower 5&6 ]":
     "https://res.cloudinary.com/dyzeu8bz6/image/upload/v1778655776/Tower_5_6_Typ_Flat_C_1_must23.png",
