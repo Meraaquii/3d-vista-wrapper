@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -274,6 +274,19 @@ function Amenities() {
         </Canvas>
       </div>
 
+      {!showCard && (
+        <button
+          className="amenities-trigger-btn"
+          type="button"
+          onClick={() => setShowCard(true)}
+          aria-label="Show amenities"
+          title="Show amenities"
+        >
+          <IoIosArrowForward />
+          <span>Amenities</span>
+        </button>
+      )}
+
       {/* Side Card */}
       <div className={`amenities-card${showCard ? " visible" : ""}`}>
         <div className="amenities-card-toprow">
@@ -283,7 +296,10 @@ function Amenities() {
 
           <button
             className="amenities-back-btn"
+            type="button"
             onClick={() => setShowCard(false)}
+            aria-label="Hide amenities"
+            title="Hide amenities"
           >
             <IoIosArrowBack />
           </button>

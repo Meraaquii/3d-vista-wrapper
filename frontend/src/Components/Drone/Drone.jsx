@@ -160,11 +160,11 @@ const droneImages = {
 };
 
 const droneList = [
-  "5TH FLOOR",
-  "10TH FLOOR",
-  "15TH FLOOR",
-  "20TH FLOOR",
   "25TH FLOOR",
+  "20TH FLOOR",
+  "15TH FLOOR",
+  "10TH FLOOR",
+  "5TH FLOOR",
 ];
 
 function PanoramaSphere({ url, onLoaded }) {
@@ -362,7 +362,7 @@ function Scene({
 }
 
 function Drone() {
-  const [selected, setSelected] = useState("5TH FLOOR");
+  const [selected, setSelected] = useState("25TH FLOOR");
   const [showCard, setShowCard] = useState(true);
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
@@ -454,16 +454,29 @@ function Drone() {
         </Canvas>
       </div>
 
-      {/* {!showCard && (
-        <button className="drone-reopen-btn" onClick={() => setShowCard(true)}>
+      {!showCard && (
+        <button
+          className="drone-reopen-btn"
+          type="button"
+          onClick={() => setShowCard(true)}
+          aria-label="Show drone floors"
+          title="Show drone floors"
+        >
           <IoIosArrowForward />
+          <span>Drone View</span>
         </button>
-      )} */}
+      )}
 
       <div className={`drone-card${showCard ? " visible" : ""}`}>
         <div className="drone-card-toprow">
           <h1 className="drone-title">Drone View</h1>
-          <button className="drone-back-btn" onClick={() => setShowCard(false)}>
+          <button
+            className="drone-back-btn"
+            type="button"
+            onClick={() => setShowCard(false)}
+            aria-label="Hide drone floors"
+            title="Hide drone floors"
+          >
             <IoIosArrowBack />
           </button>
         </div>

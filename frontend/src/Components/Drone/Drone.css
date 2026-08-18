@@ -115,25 +115,40 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  background: rgba(38, 38, 38, 0.7);
-  border: none;
+  background: rgba(38, 38, 38, 0.78);
+  border: 1px solid rgba(200, 200, 200, 0.2);
+  border-left: none;
   border-radius: 0 8px 8px 0;
-  width: 28px;
-  height: 48px;
+  min-height: 48px;
+  padding: 12px 14px 12px 8px;
   display: flex;
   align-items: center;
+  gap: 6px;
   justify-content: center;
   color: #fff;
-  font-size: 1rem;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   z-index: 10;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: background 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .drone-reopen-btn:hover {
-  background: rgba(231, 62, 63, 0.8);
+  background: rgba(231, 62, 63, 0.86);
+  border-color: rgba(231, 62, 63, 0.86);
+}
+
+.drone-reopen-btn svg {
+  flex: 0 0 auto;
+  font-size: 18px;
+}
+
+.drone-reopen-btn span {
+  white-space: nowrap;
 }
 
 /* ─────────────────────────────────────────

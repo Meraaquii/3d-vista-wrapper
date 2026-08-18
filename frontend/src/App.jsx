@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./Components/Sidebar/Sidebar";
 import Exterior from "./Components/Exterior/Exterior";
 import Interior from "./Components/Interior/Interior";
 import Amenities from "./Components/Amenities/Amenities";
@@ -13,7 +12,6 @@ function App() {
   return (
     <BrowserRouter basename="/SrijanOrizon">
       <div className="app">
-        <Sidebar />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Navigate to="/exterior" replace />} />
