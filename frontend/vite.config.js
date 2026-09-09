@@ -3,7 +3,8 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/SrijanOrizon",
+  // base: "/SrijanOrizon",
+  base: "/360_interior/",
   server: {
     port: 5173,
     strictPort: true,

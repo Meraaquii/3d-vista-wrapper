@@ -64,6 +64,7 @@
   top: 0;
   left: 0;
   width: 12%;
+  min-width: 220px;
   height: 100vh;
   background: rgba(38, 38, 38, 0.6);
   border-right: 1px solid rgba(200, 200, 200, 0.2);

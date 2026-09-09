@@ -1,7 +1,7 @@
 .interior-page {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -26,31 +26,38 @@
    ========================= */
 .interior-tabs {
   position: absolute;
-  bottom: 15px;
+  bottom: clamp(10px, 2.5vw, 15px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% - 150px));
 
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: clamp(6px, 1.2vw, 10px);
 
   z-index: 10;
 
-  padding: 8px 10px;
+  padding: clamp(6px, 1.2vw, 8px) clamp(8px, 1.5vw, 10px);
   border-radius: 12px;
 
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   white-space: nowrap;
+  scroll-snap-type: x proximity;
 
-  max-width: 95vw; /* ✅ prevents overflow */
+  max-width: 92vw;
 }
 
 /* Scrollbar hide (clean UI) */
 .interior-tabs::-webkit-scrollbar {
   display: none;
+}
+.interior-tabs {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 /* =========================
@@ -58,9 +65,10 @@
    ========================= */
 .interior-tab {
   flex: 0 0 auto; /* prevents shrinking */
+  scroll-snap-align: start;
 
-  height: 40px;
-  padding: 0 14px;
+  height: clamp(30px, 6vw, 40px);
+  padding: 0 clamp(8px, 2vw, 14px);
 
   background: #5e5e5e;
   border: none;
@@ -86,7 +94,7 @@
 /* Text */
 .interior-tab-text {
   color: #fff;
-  font-size: 12px;
+  font-size: clamp(9px, 2vw, 12px);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -96,29 +104,30 @@
    ========================= */
 .interior-styles {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: clamp(10px, 2.5vw, 20px);
+  right: clamp(10px, 2.5vw, 20px);
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: clamp(6px, 1.5vw, 10px);
 
   z-index: 10;
 }
 
 .interior-style-btn {
-  width: 70px;
-  height: 70px;
+  width: clamp(42px, 8vw, 70px);
+  height: clamp(42px, 8vw, 70px);
   border-radius: 50%;
   border: none;
 
   background: rgba(255, 255, 255, 0.92);
   color: #222;
 
-  font-size: 12px;
+  font-size: clamp(9px, 1.8vw, 12px);
   font-weight: 600;
 
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .interior-style-btn.active {
@@ -132,8 +141,8 @@
    ========================= */
 .interior-floorplan {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: clamp(14px, 3vw, 20px);
+  left: clamp(10px, 2.5vw, 20px);
 
   z-index: 10;
 
@@ -141,8 +150,8 @@
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.3);
 
-  width: 160px;
-  height: 120px;
+  width: clamp(90px, 18vw, 160px);
+  height: clamp(68px, 13.5vw, 120px);
 }
 
 .interior-floorplan-img {
@@ -156,14 +165,13 @@
    ========================= */
 .interior-view-toggle {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: clamp(14px, 3vw, 20px);
+  right: clamp(10px, 2.5vw, 20px);
 
   display: flex;
 
-  width: 260px;
-  max-width: 40vw; /* ✅ responsive */
-  height: 50px;
+  width: clamp(150px, 32vw, 260px);
+  height: clamp(36px, 7vw, 50px);
 
   background: #e5e5e5;
   border-radius: 30px;
@@ -178,7 +186,7 @@
   background: transparent;
 
   color: #e73e3f;
-  font-size: 14px;
+  font-size: clamp(10px, 2.2vw, 14px);
   font-weight: 600;
 
   cursor: pointer;
@@ -216,39 +224,66 @@
 }
 
 /* =========================
+   📱 TABLET FIX
+   ========================= */
+@media (max-width: 1024px) {
+  .interior-tabs {
+    max-width: 94vw;
+  }
+
+  .interior-styles {
+    top: 14px;
+    right: 14px;
+  }
+}
+
+/* =========================
    📱 MOBILE RESPONSIVE FIX
    ========================= */
 @media (max-width: 768px) {
   .interior-tabs {
     bottom: 10px;
     gap: 6px;
-    padding: 6px;
+    padding: 6px 8px;
+    max-width: 96vw;
+    /* view-toggle moves above this row below 768px, so re-center normally */
+    transform: translateX(-50%);
   }
 
   .interior-tab {
-    height: 34px;
+    height: 32px;
     padding: 0 10px;
     font-size: 11px;
   }
 
+  .interior-styles {
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
   .interior-style-btn {
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
     font-size: 10px;
   }
 
   .interior-floorplan {
-    width: 120px;
-    height: 90px;
+    width: 100px;
+    height: 75px;
     left: 10px;
-    bottom: 70px;
+    bottom: 64px; /* clears the unit tabs row */
   }
 
   .interior-view-toggle {
-    width: 200px;
-    height: 45px;
+    width: 170px;
+    height: 40px;
     right: 10px;
-    bottom: 70px;
+    bottom: 64px; /* clears the unit tabs row */
+  }
+
+  .toggle-btn {
+    font-size: 11px;
   }
 }
 
@@ -258,25 +293,80 @@
 @media (max-width: 480px) {
   .interior-tabs {
     max-width: 98vw;
+    bottom: 8px;
+    padding: 5px 6px;
+    gap: 5px;
+    border-radius: 10px;
   }
 
   .interior-tab {
-    height: 32px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 10px;
+    border-radius: 6px;
+  }
+
+  .interior-style-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 9px;
+  }
+
+  .interior-floorplan {
+    width: 80px;
+    height: 60px;
+    bottom: 58px;
+  }
+
+  .interior-view-toggle {
+    width: 150px;
+    height: 36px;
+    bottom: 58px;
+  }
+
+  .toggle-btn {
+    font-size: 10px;
+  }
+}
+
+/* =========================
+   📱 LANDSCAPE / SHORT-HEIGHT MOBILE FIX
+   ========================= */
+@media (max-height: 480px) and (orientation: landscape) {
+  .interior-tabs {
+    bottom: 6px;
+    padding: 4px 6px;
+  }
+
+  .interior-tab {
+    height: 26px;
     padding: 0 8px;
     font-size: 10px;
   }
 
+  .interior-styles {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
   .interior-style-btn {
-    width: 45px;
-    height: 45px;
+    width: 36px;
+    height: 36px;
+    font-size: 8px;
   }
 
   .interior-floorplan {
-    display: none; /* optional: hide on very small screens */
+    width: 70px;
+    height: 52px;
+    bottom: 46px;
+    left: 8px;
   }
 
   .interior-view-toggle {
-    width: 180px;
-    height: 40px;
+    width: 140px;
+    height: 32px;
+    bottom: 46px;
+    right: 8px;
   }
 }

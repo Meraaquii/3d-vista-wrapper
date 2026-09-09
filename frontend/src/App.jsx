@@ -1,24 +1,26 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./Components/Sidebar/Sidebar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Exterior from "./Components/Exterior/Exterior";
 import Interior from "./Components/Interior/Interior";
 import Amenities from "./Components/Amenities/Amenities";
 import Drone from "./Components/Drone/Drone";
 import Call from "./Components/Call/Call";
-import "./App.css";
 import Map from "./Components/Map/Map";
+
+import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter basename="/SrijanOrizon">
+    <BrowserRouter basename="/360_interior">
       <div className="app">
-        <Sidebar />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/exterior" replace />} />
+            {/* Home page */}
+            <Route path="/" element={<Interior />} />
+
+            {/* Other pages */}
             <Route path="/exterior" element={<Exterior />} />
-            <Route path="/interior" element={<Interior />} />
             <Route path="/amenities" element={<Amenities />} />
             <Route path="/map" element={<Map />} />
             <Route path="/drone" element={<Drone />} />
